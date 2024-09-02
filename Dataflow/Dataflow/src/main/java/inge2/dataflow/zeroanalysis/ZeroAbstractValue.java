@@ -45,12 +45,9 @@ public enum ZeroAbstractValue {
      * @return the result of the addition.
      */
     public ZeroAbstractValue add(ZeroAbstractValue another) {
-        if (this == BOTTOM) {
-            if (another == BOTTOM) return BOTTOM;
-            if (another == NOT_ZERO) return BOTTOM;
-            if (another == ZERO) return BOTTOM;
-            if (another == MAYBE_ZERO) return BOTTOM;
-        }
+        if (this == BOTTOM) return BOTTOM; //Operar con bottom siempre devuelve bottom
+
+        //Armo ifs basados en la tabla de operaciones para cada combinacion de estados abstractos hecha previamente
         if (this == NOT_ZERO) {
             if (another == BOTTOM) return BOTTOM;
             if (another == NOT_ZERO) return MAYBE_ZERO;
@@ -79,12 +76,9 @@ public enum ZeroAbstractValue {
      * @return the result of the division.
      */
     public ZeroAbstractValue divideBy(ZeroAbstractValue another) {
-        if (this == BOTTOM) {
-            if (another == BOTTOM) return BOTTOM;
-            if (another == NOT_ZERO) return BOTTOM;
-            if (another == ZERO) return BOTTOM;
-            if (another == MAYBE_ZERO) return BOTTOM;
-        }
+        if (this == BOTTOM) return BOTTOM; //Operar con bottom siempre devuelve bottom
+
+        //Armo ifs basados en la tabla de operaciones para cada combinacion de estados abstractos hecha previamente
         if (this == NOT_ZERO) {
             if (another == BOTTOM) return BOTTOM;
             if (another == NOT_ZERO) return MAYBE_ZERO;
@@ -112,12 +106,9 @@ public enum ZeroAbstractValue {
      * @return the result of the multiplication.
      */
     public ZeroAbstractValue multiplyBy(ZeroAbstractValue another) {
-        if (this == BOTTOM) {
-            if (another == BOTTOM) return BOTTOM;
-            if (another == NOT_ZERO) return BOTTOM;
-            if (another == ZERO) return BOTTOM;
-            if (another == MAYBE_ZERO) return BOTTOM;
-        }
+        if (this == BOTTOM) return BOTTOM; //Operar con bottom siempre devuelve bottom
+
+        //Armo ifs basados en la tabla de operaciones para cada combinacion de estados abstractos hecha previamente
         if (this == NOT_ZERO) {
             if (another == BOTTOM) return BOTTOM;
             if (another == NOT_ZERO) return NOT_ZERO;
@@ -145,12 +136,9 @@ public enum ZeroAbstractValue {
      * @return the result of the subtraction.
      */
     public ZeroAbstractValue subtract(ZeroAbstractValue another) {
-        if (this == BOTTOM) {
-            if (another == BOTTOM) return BOTTOM;
-            if (another == NOT_ZERO) return BOTTOM;
-            if (another == ZERO) return BOTTOM;
-            if (another == MAYBE_ZERO) return BOTTOM;
-        }
+        if (this == BOTTOM) return BOTTOM; //Operar con bottom siempre devuelve bottom
+
+        //Armo ifs basados en la tabla de operaciones para cada combinacion de estados abstractos hecha previamente
         if (this == NOT_ZERO) {
             if (another == BOTTOM) return BOTTOM;
             if (another == NOT_ZERO) return MAYBE_ZERO;
@@ -178,13 +166,13 @@ public enum ZeroAbstractValue {
      * @return the result of the merge.
      */
     public ZeroAbstractValue merge(ZeroAbstractValue another) {
-        if (this == MAYBE_ZERO || another == MAYBE_ZERO) return MAYBE_ZERO;
+        if (this == MAYBE_ZERO || another == MAYBE_ZERO) return MAYBE_ZERO; //Si alguno es MZ el merge da MZ porque es top
         if (this == BOTTOM || another == BOTTOM) {
-            if (another == BOTTOM) return this;
+            if (another == BOTTOM) return this; //Si alguno es bottom devuelvo el otro. Ambos bottom devuelve bottom
             else return another;
         }
-        if (this == another) return this;
-        else return MAYBE_ZERO;
+        if (this == another) return this; //Si son iguales devuelvo el estado abstracto que corresponde a ambos
+        else return MAYBE_ZERO; //Caso en que uno es NZ y el otro Z, tengo que devolver MZ
     }
 
 }

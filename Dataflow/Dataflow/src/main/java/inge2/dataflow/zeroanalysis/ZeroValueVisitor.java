@@ -59,7 +59,9 @@ public class ZeroValueVisitor extends AbstractValueVisitor<ZeroAbstractValue> {
      */
     @Override
     public void visitDivExpression(ZeroAbstractValue leftOperand, ZeroAbstractValue rightOperand) {
+        //Como en todos los demás métodos, aprovecho la operación ya definida
         resolvedValue = leftOperand.divideBy(rightOperand);
+        //Además debo rebisar el operando derecho; si es un cero o puede serlo (o sea: Z o NZ) activo el flag de posible división por cero
         if (rightOperand == ZeroAbstractValue.ZERO || rightOperand == ZeroAbstractValue.MAYBE_ZERO) possibleDivisionByZero = true;
     }
 
@@ -100,6 +102,8 @@ public class ZeroValueVisitor extends AbstractValueVisitor<ZeroAbstractValue> {
      */
     @Override
     public void visitIntegerConstant(int value) {
+        //Si el valor es 0 el estado abstracto es 0
+        //Si no es cero no es no cero :)
         if (value == 0) resolvedValue = ZeroAbstractValue.ZERO;
         else resolvedValue = ZeroAbstractValue.NOT_ZERO;
 

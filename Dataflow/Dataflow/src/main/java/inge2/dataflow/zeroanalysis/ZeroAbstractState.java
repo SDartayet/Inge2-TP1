@@ -62,8 +62,11 @@ public class ZeroAbstractState {
      */
     public ZeroAbstractState union(ZeroAbstractState another) {
         ZeroAbstractState result = new ZeroAbstractState();
+        //Tomo como base el estado actual y hago el merge en base a eso
         result.putAll(this);
         for (String s : another.map.keySet()) {
+            //Si no hay un valor abstracto para esa variable tomo el del another
+            //Sino hago el merge entre ambas
             if (!result.hasValue(s)) result.setValue(s, another.map.get(s));
             else result.setValue(s, result.getValue(s).merge(another.map.get(s)));
         }
